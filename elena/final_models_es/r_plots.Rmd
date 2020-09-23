@@ -1,0 +1,78 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+library(leaflet)
+library(shiny)
+library(maps)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+present <- read.csv('data_predict/PRESENT_ch4_knn.csv')
+ssp126 <- read.csv('data_predict/ssp126_ch4_knn.csv')
+ssp585 <- read.csv('data_predict/ssp585_ch4_knn.csv')
+
+
+```
+
+
+
+```{r}
+      # make ggplot
+    theme_set(theme_classic())
+    g4 <- ggplot(catch_flood, aes(elev_ft))
+    g4 <- g4 + geom_density(aes(fill=factor(type)), alpha=0.8) + 
+      ylim(0, 0.125) +
+      labs(title="    Elevation Density ", 
+           caption="data sources: data.nola.gov, atlas.ga.lsu.edu",
+           x="Elevation (ft)",
+           y="Density",
+           fill="") +
+      scale_fill_manual(values=c("#81CDFC", "#FCD681")) +
+      theme(axis.text.y   = element_text(size=14),
+            axis.text.x   = element_text(size=14),
+            axis.title.y  = element_text(size=16),
+            axis.title.x  = element_text(size=16),
+            plot.title = element_text(vjust = - 8, size = 18),
+            panel.background = element_blank(),
+            panel.grid.major = element_blank(), 
+            panel.grid.minor = element_blank(),
+            legend.position = c(.85, .85),
+            legend.text = element_text(size=14),
+            axis.line = element_line(colour = "black"),
+            panel.border = element_rect(colour = "black", fill=NA, size=1)
+      )
+  
+
+
+```
+
+
+```{r}
+theme_classic()
+density_ <- read.csv('data_predict/density_plot.csv')
+
+plot <- ggplot(data=density_, aes(x=model_present_ch4_diff, group=Model, fill=Model)) +
+    geom_density(adjust=1.5, alpha=.4) 
+```
+
+
+```{r}
+p1 <- ggplot(density_, aes(model_present_ch4_diff, fill = Model, colour = Model)) +
+  geom_density(alpha = 0.1)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
