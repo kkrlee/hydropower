@@ -66,8 +66,57 @@ plot <- ggplot(data=density_, aes(x=model_present_ch4_diff, group=Model, fill=Mo
 
 
 ```{r}
-p1 <- ggplot(density_, aes(model_present_ch4_diff, fill = Model, colour = Model)) +
-  geom_density(alpha = 0.1)
+
+density_ <- read.csv('density_plot1.csv')
+
+
+p1 <- ggplot(density_, aes(model_ch4, fill = Model, colour = Model)) +
+  geom_density(alpha = 0.1) +
+  labs(title="  ", 
+           x="CH4 mgC/m^2/yr",
+           y="Density",
+           fill="") +
+  theme(axis.text.y   = element_text(size=14),
+            axis.text.x   = element_text(size=14),
+            axis.title.y  = element_text(size=16),
+            axis.title.x  = element_text(size=16),
+            plot.title = element_text(vjust = - 8, size = 18),
+            panel.background = element_blank(),
+            panel.grid.major = element_blank(), 
+            panel.grid.minor = element_blank(),
+            legend.position = c(.85, .65),
+            legend.text = element_text(size=14),
+            axis.line = element_line(colour = "black"),
+            panel.border = element_rect(colour = "black", fill=NA, size=1))
+  
+
+p1
+```
+```{r}
+density_ <- read.csv('density_plot1.csv')
+
+
+p2 <- ggplot(density_, aes(model_co2, fill = Model, colour = Model)) +
+  geom_density(alpha = 0.1) +
+  labs(title="  ", 
+           x="CO2(ssp) - CO2(present) mgC/m^2/yr",
+           y="Density",
+           fill="") +
+  theme(axis.text.y   = element_text(size=14),
+            axis.text.x   = element_text(size=14),
+            axis.title.y  = element_text(size=16),
+            axis.title.x  = element_text(size=16),
+            plot.title = element_text(vjust = - 8, size = 18),
+            panel.background = element_blank(),
+            panel.grid.major = element_blank(), 
+            panel.grid.minor = element_blank(),
+            legend.position = c(.85, .65),
+            legend.text = element_text(size=14),
+            axis.line = element_line(colour = "black"),
+            panel.border = element_rect(colour = "black", fill=NA, size=1))
+  
+
+p2
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
